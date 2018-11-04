@@ -1,0 +1,5 @@
+127.0.0.1 - - [30/Oct/2018:15:58:46 +0000] "GET / HTTP/1.1" 404 1074
+127.0.0.1 - - [30/Oct/2018:15:58:50 +0000] "GET /FileUpload/ HTTP/1.1" 404 1089
+0:0:0:0:0:0:0:1 - - [30/Oct/2018:15:59:54 +0000] "POST /FileUpload/rest/fileservice/upload/images HTTP/1.1" 200 60
+0:0:0:0:0:0:0:1 - - [30/Oct/2018:16:19:25 +0000] "POST /FileUpload/rest/fileservice/upload/images HTTP/1.1" 200 60
+127.0.0.1 - - [30/Oct/2018:16:33:59 +0000] "GET /StudentData/ HTTP/1.1" 200 7724

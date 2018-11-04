@@ -1,0 +1,53 @@
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>  
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
+  	
+  	<script type="text/javascript">
+    	$(document).ready(function()
+    	{
+    		$('#submit').ready(function()
+    		{
+    			var file = $('#uploadFile'); 
+    			var formData = new FormData(); 
+    			formData.append('file', file); 
+    			$.ajax({ 
+    				url : "http://localhost:8080/FileUpload/rest/fileservice/upload/images",
+    				type : 'POST', 
+    				data : formData, cache : false, 
+    				contentType : false, 
+    				processData : false, 
+    				success : 
+    					function(data, textStatus, jqXHR) {
+    						var userObj = JSON.parse(jqXHR.responseText);
+    						alert(userObj); 
+    						}, 
+    				error : 
+    					function(jqXHR, textStatus, errorThrown) {
+    						alert(textStatus); 
+    						} 	
+    			});
+    		});
+		});
+	</script>    
+</head>
+
+<body>
+	<div class="container" id="filecontainer">
+		<form class="form-horizontal" action="#">
+			<div class="form-group">
+		      <label class="control-label col-sm-6" class="align-middle" for="file">Select File:</label>
+		      <div class="col-sm-2" class="align-middle">
+		        <input type="file" class="form-control" id="file" placeholder="File" name="uploadFile">
+		      </div>
+		     </div>
+		     <div class="form-group">        
+		      <div class="col-sm-offset-5 col-sm-7">
+		        <button id="submit" type="button" class="btn btn-default">Submit</button>
+		      </div>
+		    </div>
+		</form>
+	</div>
+</body>

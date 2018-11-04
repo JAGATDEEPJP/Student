@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 2 elements to &apos;StudentDataImage/src/com.rest&apos;&#x0A;- Original project: &apos;FileUpload&apos;&#x0A;- Destination element: &apos;StudentDataImage/src/com.rest&apos;&#x0A;- Original elements:&#x0A;     com.rest.IFileService.java&#x0A;     com.rest.FileServiceImpl.java" description="Copy compilation units" destination="=StudentDataImage/src&lt;com.rest" element1="/src&lt;com.rest{IFileService.java" element2="/src&lt;com.rest{FileServiceImpl.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1541153589659" units="2" version="1.0"/>
+</session>

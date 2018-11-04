@@ -1,0 +1,7 @@
+<classpath>
+  <container id="Hello World Web Project!org.eclipse.jst.j2ee.internal.web.container">
+    <entry id="/home/jagatdeep/eclipse-workspace/Hello World Web Project/WebContent/WEB-INF/lib/javax.ws.rs-api-2.0.1.jar">
+      <source-attachment-path>/Hello World Web Project/WebContent/WEB-INF/lib</source-attachment-path>
+    </entry>
+  </container>
+</classpath>

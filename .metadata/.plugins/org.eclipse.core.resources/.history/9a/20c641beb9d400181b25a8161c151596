@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<title>Student Entry</title>
+			
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>  
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
+  <script type="text/javascript">
+		$(document).ready(function() 
+		{
+			$('#submit').click(function()
+			{
+			    if (document.getElementById("name").value == "") {
+			    	 alert("Please enter Valid Name.");
+			    }
+			    else if(document.getElementById("rollno").value == ""){
+			    	alert("Please enter Valid Roll No.");
+			    }
+			    else if(document.getElementById("phy").value == ""){
+			    	alert("Please enter Valid Physics mark.");
+			    }
+			    else if(document.getElementById("chem").value == ""){
+			    	alert("Please enter Valid Chemistry mark.");
+			    }
+			    else if(document.getElementById("math").value == ""){
+			    	alert("Please enter Valid Mathematics mark.");
+			    }
+			    else if(document.getElementById("dob").value == ""){
+			    	alert("Please enter Valid Date.")
+			    }	
+			    else 
+			    {
+					saveStudent();
+			    }
+			});
+		});
+		
+		function renderDetails(data)
+		{
+	        var name = $("#name").val();
+	        var rollno = $("#rollno").val();
+	        var phy = $("#phy").val();
+			console.log(data);
+			$("#eqn").html("The roots of the equation, ("+a+") x^2 + ("+b+") x + ("+c+") = 0 are:");
+			$("#root1").html(data.root1);
+			$("#root2").html(data.root2);
+			$("#result").show();
+		}
+
+		function formToJSON() 
+		{
+	        var a = $("#name").val();
+	        var b = $("#rollno").val();
+	        var c = $("#phy").val();
+	        var d = $("#chem").val();
+	        var e = $("#math").val();
+	        var f = $("#dob").val();
+			var jsonObj = JSON.stringify({
+	        	"name_":a,
+	        	"rollno_"":b,
+	        	"phy_":c,
+	        	"chem_":d,
+	        	"math_":e,
+	        	"dob_":f
+	        	});
+			return jsonObj;
+		}
+		
+		function saveStudent()
+		{
+            var jersey_url = "http://localhost:8080/Student/rest/json/create_student";
+            $.ajax({
+                type: 'POST', // GET
+        		contentType: 'application/json',
+                url: jersey_url,
+                dataType: "json", // data type of response
+                data: formToJSON(),
+                success: message
+            });
+		}
+		
+		function message()
+		{
+			alert("Save Successfully.");
+		}
+		
+	</script>		
+</head>
+	
+<body>
+<div class="container">
+	<form class="form-horizontal" action="#">
+	<div class="form-group">
+	  <h1 style="text-align: center"> ADD STUDENT </h1>   
+    </div>
+    
+    <div class="form-group">
+      <label class="control-label col-sm-1" for="a">Name:</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" id="name" placeholder="Name" name="a">
+      </div>
+      <label class="control-label col-sm-1" for="b">Roll No:</label>
+      <div class="col-sm-3">
+        <input type="number" class="form-control" id="rollno" placeholder="Roll No" name="b">
+      </div>
+      <label class="control-label col-sm-1" for="phy">Physics:</label>
+      <div class="col-sm-3">
+        <input type="number" class="form-control" id="c" placeholder="Physics" name="c">
+      </div>
+      <label class="control-label col-sm-1" for="d">Chemistry:</label>
+      <div class="col-sm-3">
+        <input type="number" class="form-control" id="chem" placeholder="Chemistry" name="d">
+      </div>
+      <label class="control-label col-sm-1" for="e">Mathematics:</label>
+      <div class="col-sm-3">
+        <input type="number" class="form-control" id="math" placeholder="Mathematics" name="e">
+      </div>
+      <label class="control-label col-sm-1" for="f">D.O.B:</label>
+      <div class="col-sm-3">
+        <input type="date" class="form-control" id="dob" placeholder="Date of Birth" name="f">
+      </div>
+    </div>
+    
+    <div class="form-group">        
+      <div class="col-sm-offset-5 col-sm-7">
+        <button id="submit" type="button" class="btn btn-default">Submit</button>
+      </div>
+    </div>
+    </form>
+</div>		
+</body>		
+</html>

@@ -1,0 +1,3 @@
+INDEX VERSION 1.131
+/home/jagatdeep/eclipse-workspace/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/372126160.index
+/Student/src/main/resources

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="javax.ws.rs.client.InvocationCallback"/>
+    <fullyQualifiedTypeName name="javax.ws.rs.client.ClientBuilder"/>
+    <fullyQualifiedTypeName name="javax.ws.rs.client.WebTarget"/>
+    <fullyQualifiedTypeName name="com.student.DBConnect"/>
+</qualifiedTypeNameHistroy>
