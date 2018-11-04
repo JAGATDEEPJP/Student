@@ -14677,3 +14677,4 @@ org.eclipse.core.runtime.CoreException: Variable references non-existent resourc
 2018-11-04 12:43:26,190 [Worker-40: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/jagatdeep/eclipse-workspace/StudentData_Image/src/main/resources
 2018-11-04 12:43:26,192 [Worker-40: Building workspace] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
 2018-11-04 12:43:26,193 [Worker-40: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/jagatdeep/eclipse-workspace/StudentData_Image/src/test/resources
+2018-11-04 21:00:23,990 [Worker-1: Loading available Gradle versions] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
