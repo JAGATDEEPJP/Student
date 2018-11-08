@@ -4,4 +4,6 @@
     <fullyQualifiedTypeName name="javax.ws.rs.client.ClientBuilder"/>
     <fullyQualifiedTypeName name="javax.ws.rs.client.WebTarget"/>
     <fullyQualifiedTypeName name="com.student.DBConnect"/>
+    <fullyQualifiedTypeName name="javax.servlet.ServletContext"/>
+    <fullyQualifiedTypeName name="javax.ws.rs.core.Context"/>
 </qualifiedTypeNameHistroy>

@@ -161,44 +161,9 @@
 			$("#schem").html(data.chem);
 			$("#smath").html(data.math);
 			$("#sdob").html(data.dob);
-			var path = data.path;
-			$.ajax({
-					type: "GET",
-    		        url: "/StudentData_Image/rest/fileservice/download/images",
-    		        contentType: false,
-    		        processData: false,
-    		        data: formToJSON3(path),
-    		        error: function (xhr, status, error) {
-    		            console.log(xhr);
-    		            console.log(status);
-    		            console.log(error);
-    		            console.log(data);
-    		            alert("Error");
-    		        },
-    		        success: function(response, status, xhr){
-    		            var filename = "";
-    		            var disposition = xhr.getResponseHeader('Content-Disposition');
-    		            if (disposition && disposition.indexOf('attachment') !== -1) {
-    		                var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-    		                var matches = filenameRegex.exec(disposition);
-    		                if (matches != null && matches[1]) { 
-    		                  filename = matches[1].replace(/['"]/g, '');
-    		                }
-    		            }
-    		            alert(filename);
-    		        }
-	            });
+			var filePath = "http://localhost:8080"+data.path;
+			$("#simg").attr('src',filePath);
 			$("#result").show();
-		}
-		function formToJSON3(path) 
-		{ 
-	        var b = $("#sroll").val();
-	        var path = path;
-			var jsonObj = JSON.stringify({
-	        	"rollno_":b,
-	        	"path_":path
-	        	});
-			return jsonObj;
 		}
 		function formToJSON2() 
 		{ 
@@ -319,7 +284,7 @@
 		      </tr>
 		      <tr>
 		        <th>Photo</th>
-		        <td id="simg"></td>
+		        <td><img id="simg" width="100px" height="150px" ></img></td>
 		      </tr>
 		    </tbody>
 		  </table>

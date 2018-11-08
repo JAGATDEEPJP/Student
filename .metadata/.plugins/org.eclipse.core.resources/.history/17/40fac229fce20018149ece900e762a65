@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<title>Student Entry</title>
+			
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>  
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
+    <script type="text/javascript">
+    	$(document).ready(function()
+        	{
+        			$('#addstudentdiv').hide();
+        			$('#displaystudentdiv').hide();
+        			$('#dresult').hide();
+        			$('#maindiv').show();
+        			$('#submitstudent').click(function()
+        			{
+        				$('#maindiv').hide();
+            			$('#addstudentdiv').show();
+        			});
+        			$('#submitdisplay').click(function()
+                	{
+           				$('#maindiv').hide();
+               			$('#displaystudentdiv').show();
+                	});
+        	});
+    </script>
+    
+    <script type="text/javascript">
+		$('#addstudentdiv').ready(function() 
+		{
+			$('#submit').click(function()
+			    {
+				    alert("Hi JP1");
+	    			var data = new FormData();
+	    			var rollno = $("#rollno").val();
+	    			data.append("rollno",rollno);
+	    		    var files = $("#file").get(0).files;
+	    		    alert(files[0]);
+	    		   // Add the uploaded file content to the form data collection
+	    		    if (files.length > 0) {
+	    		        data.append("uploadFile", files[0]);
+	    		    }
+	    		   alert("data>>"+data);
+	    		   // Make Ajax request with the contentType = false, and procesDate = false
+	    		    var ajaxRequest = $.ajax({
+	    		        type: "POST",
+	    		        url: "/StudentData_Image/rest/fileservice/upload/images",
+	    		        contentType: false,
+	    		        processData: false,
+	    		        data: data,
+	    		        error: function (xhr, status, error) {
+	    		            console.log(xhr);
+	    		            console.log(status);
+	    		            console.log(error);
+	    		            console.log(data);
+	    		            alert("Error");
+	    		        },
+	    		    	success: function (Response) {
+	    		    		var path = Response;
+	    		    		if (document.getElementById("name").value == "") {
+	    				    	 alert("Please enter Valid Name.");
+	    				    }
+	    				    else if(document.getElementById("rollno").value == ""){
+	    				    	alert("Please enter Valid Roll No.");
+	    				    }
+	    				    else if(document.getElementById("phy").value == ""){
+	    				    	alert("Please enter Valid Physics mark.");
+	    				    }
+	    				    else if(document.getElementById("chem").value == ""){
+	    				    	alert("Please enter Valid Chemistry mark.");
+	    				    }
+	    				    else if(document.getElementById("math").value == ""){
+	    				    	alert("Please enter Valid Mathematics mark.");
+	    				    }
+	    				    else if(document.getElementById("dob").value == ""){
+	    				    	alert("Please enter Valid Date.")
+	    				    }	
+	    				    else 
+	    				    {
+	    						saveStudent(path);
+	    				    }
+	    		    	}
+    		    });
+    		    ajaxRequest.done(function (xhr, textStatus) {
+    		        alert("Done");
+    		    });
+    		    
+			});
+		});
+		
+		function formToJSON(path) 
+		{
+	        var a = $("#name").val();
+	        var b = $("#rollno").val();
+	        var c = $("#phy").val();
+	        var d = $("#chem").val();
+	        var e = $("#math").val();
+	        var f = $("#dob").val();
+			var jsonObj = JSON.stringify({
+	        	"name_":a,
+	        	"rollno_":b,
+	        	"phy_":c,
+	        	"chem_":d,
+	        	"math_":e,
+	        	"dob_":f,
+	        	"path_":path
+	        	});
+			return jsonObj;
+		}
+		
+		function saveStudent(path)
+		{
+            var jersey_url = "http://localhost:8080/StudentData_Image/rest/json/create_student";
+            $.ajax({
+                type: 'POST', // GET
+        		contentType: 'application/json',
+                url: jersey_url,
+                dataType: "json", // data type of response
+                data: formToJSON(path),
+                success: message
+            });
+		}
+		
+		function message()
+		{
+			alert("Save Successfully.");
+		}	
+	</script>	
+	
+	<script type="text/javascript">
+		$('#displaystudentdiv').ready(function()
+		{
+			$('#submitrno').click(function()
+			{
+				showDetails();
+				$('#dresult').show();
+			});
+		});
+		function showDetails()
+		{
+            var jersey_url = "http://localhost:8080/StudentData_Image/rest/json/show_student";// "<%=request.getContextPath() %>";
+            $.ajax({
+                type: 'POST', // GET
+        		contentType: 'application/json',
+                url: jersey_url,
+                dataType: "json", // data type of response
+                data: formToJSON2(),
+                success: renderDetails
+            });
+		}
+		function renderDetails(data)
+		{
+	        console.log(data);
+			$("#sname").html(data.name);
+			$("#srollno").html(data.rollno);
+			$("#sphy").html(data.phy);
+			$("#schem").html(data.chem);
+			$("#smath").html(data.math);
+			$("#sdob").html(data.dob);
+			var path = "http://localhost:8080/imgupload/static/"4098+"jpg";
+			$("#result").show();
+		}
+		function formToJSON2() 
+		{ 
+	        var b = $("#sroll").val();
+			var jsonObj = JSON.stringify({
+	        	"rollno_":b,
+	        	});
+			return jsonObj;
+		}
+	</script>
+</head>
+	
+<body>
+	<div class="container" id="maindiv">
+		<div class="form-group">        
+	      <div class="col-sm-offset-5 col-sm-7">
+	        <button id="submitstudent" type="button" class="btn btn-default">      ADD STUDENT      </button>
+	      </div>
+	      <div class="col-sm-offset-5 col-sm-7">
+	        <button id="submitdisplay" type="button" class="btn btn-default">DISPLAY STUDENT DETAILS</button>
+	      </div>
+	    </div>
+	</div>
+	
+	<div class="container" id="addstudentdiv">
+		<form class="form-horizontal" action="#">
+		<div class="form-group">
+		  <h1 style="text-align: center"> ADD STUDENT </h1>   
+	    </div>    
+	    <div class="form-group">
+	      <label class="control-label col-sm-6" class="align-middle" for="name">Name:</label>
+	      <div class="col-sm-2" class="align-middle">
+	        <input type="text" class="form-control" id="name" placeholder="Name" name="name">
+	      </div>
+	      <label class="control-label col-sm-6" for="rollno">Roll No:</label>
+	      <div class="col-sm-2">
+	        <input type="number" class="form-control" id="rollno" placeholder="Roll No" name="rollno">
+	      </div>
+	      <label class="control-label col-sm-6" for="phy">Physics:</label>
+	      <div class="col-sm-2">
+	        <input type="number" class="form-control" id="phy" placeholder="Physics" name="phy">
+	      </div>
+	      <label class="control-label col-sm-6" for="chem">Chemistry:</label>
+	      <div class="col-sm-2">
+	        <input type="number" class="form-control" id="chem" placeholder="Chemistry" name="chem">
+	      </div>
+	      <label class="control-label col-sm-6" for="math">Mathematics:</label>
+	      <div class="col-sm-2">
+	        <input type="number" class="form-control" id="math" placeholder="Mathematics" name="math">
+	      </div>
+	      <label class="control-label col-sm-6" for="dob">D.O.B:</label>
+	      <div class="col-sm-2">
+	        <input type="date" class="form-control" id="dob" placeholder="Date of Birth" name="dob">
+	      </div>
+	      <label class="control-label col-sm-6" class="align-middle" for="file">Select File:</label>
+		      <div class="col-sm-2" class="align-middle">
+		        <input type="file" class="form-control" id="file" placeholder="File" name="file">
+		      </div>
+	    </div>
+	    
+	    <div class="form-group">        
+	      <div class="col-sm-offset-5 col-sm-7">
+	        <button id="submit" type="button" class="btn btn-default">Submit</button>
+	      </div>
+	    </div>
+	   </form>
+	</div>
+	
+	<div class="container" id="displaystudentdiv">
+	<form class="form-horizontal" action="#">
+		<div class="form-group">
+		  <h1 style="text-align: center"> Student Details </h1>   
+	    </div>
+	    
+	    <div class="form-group">
+	    <label class="control-label col-sm-1" for="f">Enter Roll No:</label>
+	      <div class="col-sm-3">
+	        <input type="number" class="form-control" id="sroll" placeholder="Roll No" name="f">
+	      </div>
+	    </div>
+	    
+	    <div class="form-group">        
+	      <div class="col-sm-offset-5 col-sm-7">
+	        <button id="submitrno" type="button" class="btn btn-default">Submit</button>
+	      </div>
+	    </div>
+	</form> 
+	</div>	
+	
+	<div class="container" id="dresult">
+	  <div class="col-sm-offset-4 col-sm-5">           
+		  <table style="text-align:center" id="result" hidden="hidden"  class="table table-condensed">
+		  <h3>Student Details</h3>
+		    <tbody>
+		      <tr>
+		        <th>Name</th>
+		        <td id="sname"></td>
+		      </tr>
+		      <tr>
+		        <th>Roll No</th>
+		        <td id="srollno"></td>
+		      </tr>
+		      <tr>
+		        <th>Physics Mark</th>
+		        <td id="sphy"></td>
+		      </tr>
+		      <tr>
+		        <th>Chemistry Mark</th>
+		        <td id="schem"></td>
+		      </tr>
+		      <tr>
+		        <th>Mathematics Mark</th>
+		        <td id="smath"></td>
+		      </tr>
+		      <tr>
+		        <th>DOB</th>
+		        <td id="sdob"></td>
+		      </tr>
+		      <tr>
+		        <th>Photo</th>
+		        <td id="simg"></td>
+		      </tr>
+		    </tbody>
+		  </table>
+	  	</div>
+	</div>
+		
+</body>		
+</html>
